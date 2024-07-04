@@ -1,5 +1,6 @@
 package com.forum.ForumHub.controller;
 
+import com.forum.ForumHub.dto.DadosNovoTopicoDto;
 import com.forum.ForumHub.dto.ListagemDeTodosOsTopicosDto;
 
 import org.springframework.http.ResponseEntity;
@@ -16,9 +17,9 @@ public class TopicosController {
     }
 
     @PostMapping
-    public void novoTopico(@RequestBody String json){
+    public void novoTopico(@RequestBody DadosNovoTopicoDto dados){
 
-        System.out.println(json);
+        System.out.println(dados);
     }
 
 //    public ResponseEntity<ListagemDeTodosOsTopicosDto> listar(){
