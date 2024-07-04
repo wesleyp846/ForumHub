@@ -31,7 +31,6 @@ public class UsuarioController {
     @PostMapping
     public void novoUsuario(@RequestBody @Valid DadosNovoUsuarioDto dados){
 
-        System.out.println(dados);
         usuarioRepository.save(new UsuarioEntity(dados));
     }
 //    @Transactional
