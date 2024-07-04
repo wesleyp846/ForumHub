@@ -7,9 +7,10 @@ import com.forum.ForumHub.repository.UsuarioRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/usuario")
@@ -19,12 +20,10 @@ public class UsuarioController {
     private UsuarioRepository usuarioRepository;
 
     @GetMapping
-    public List<ListagemDeDadosUsuariosDto> listaUsuario(){
+    public Page<ListagemDeDadosUsuariosDto> listaUsuario(@PageableDefault(size = 10, sort = {"nome", "id"}) Pageable paginacao){
 
-        return usuarioRepository.findAll()
-                .stream()
-                .map(ListagemDeDadosUsuariosDto::new)
-                .toList();
+        return usuarioRepository.findAll(paginacao)
+                .map(ListagemDeDadosUsuariosDto::new);
     }
 
     @Transactional
@@ -32,6 +31,11 @@ public class UsuarioController {
     public void novoUsuario(@RequestBody @Valid DadosNovoUsuarioDto dados){
 
         usuarioRepository.save(new UsuarioEntity(dados));
+    }
+
+    @PutMapping
+    public void editarUsuario(){
+
     }
 //    @Transactional
 //    public ResponseEntity cadastrar(@RequestBody @Valid DadosCadastroPaciente dados, UriComponentsBuilder uriBuilder) {
