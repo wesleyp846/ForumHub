@@ -1,8 +1,9 @@
 package com.forum.ForumHub.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.forum.ForumHub.dto.ListagemDeTodosOsTopicosDto;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/topicos")
@@ -13,4 +14,24 @@ public class TopicosController {
 
         return "Primeiro controller";
     }
+
+    @PostMapping
+    public void novoTopico(@RequestBody String json){
+
+        System.out.println(json);
+    }
+
+//    public ResponseEntity<ListagemDeTodosOsTopicosDto> listar(){
+//
+//        var page = "repository";
+//
+//        return ResponseEntity.ok(page);
+//
+//    }
+
+//    @GetMapping
+//    public ResponseEntity<Page<DadosListagemMedico>> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao){
+//        var page = repository.findAllByAtivoTrue(paginacao).map(DadosListagemMedico::new);
+//        return ResponseEntity.ok(page);
+//    }
 }

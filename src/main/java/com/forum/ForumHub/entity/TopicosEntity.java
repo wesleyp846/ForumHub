@@ -21,7 +21,9 @@ public class TopicosEntity {
     private String titulo;
     private String mensagem;
     private LocalDateTime dataCriacao;
-    private Boolean status;
+
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
     @ManyToOne
     @JoinColumn(name = "autor_id")
