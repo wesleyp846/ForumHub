@@ -42,6 +42,14 @@ public class UsuarioController {
 
         usuario.editarUsuario(dados);
     }
+
+    @Transactional
+    @DeleteMapping("/{id}")
+    public void dasativarUsuario(@PathVariable Long id){
+
+        usuarioRepository.deleteById(id);
+    }
+
 //    @Transactional
 //    public ResponseEntity cadastrar(@RequestBody @Valid DadosCadastroPaciente dados, UriComponentsBuilder uriBuilder) {
 //        var paciente = new Paciente(dados);
