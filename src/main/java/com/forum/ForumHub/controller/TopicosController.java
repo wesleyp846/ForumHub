@@ -1,20 +1,9 @@
 package com.forum.ForumHub.controller;
 
-import com.forum.ForumHub.dto.DadosNovoTopicoDto;
-import com.forum.ForumHub.dto.DadosNovoUsuarioDto;
-import com.forum.ForumHub.dto.ListagemDeTodosOsTopicosDto;
-
-import com.forum.ForumHub.entity.TopicosEntity;
-import com.forum.ForumHub.repository.CursoRepository;
-import com.forum.ForumHub.repository.TopicosRepository;
-import com.forum.ForumHub.repository.UsuarioRepository;
-import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/topicos")
+@RequestMapping("/topico")
 public class TopicosController {
 
 //    @Autowired

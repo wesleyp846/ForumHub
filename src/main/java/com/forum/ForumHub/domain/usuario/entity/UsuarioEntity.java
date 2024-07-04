@@ -1,7 +1,7 @@
-package com.forum.ForumHub.entity;
+package com.forum.ForumHub.domain.usuario.entity;
 
-import com.forum.ForumHub.dto.DadosEdicaoDeUsuarioDto;
-import com.forum.ForumHub.dto.DadosNovoUsuarioDto;
+import com.forum.ForumHub.domain.usuario.dto.DadosEdicaoDeUsuarioDto;
+import com.forum.ForumHub.domain.usuario.dto.DadosNovoUsuarioDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

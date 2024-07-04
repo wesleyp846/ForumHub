@@ -1,6 +1,6 @@
 package com.forum.ForumHub.entity;
 
-import com.forum.ForumHub.dto.DadosNovoTopicoDto;
+import com.forum.ForumHub.domain.usuario.entity.UsuarioEntity;
 import jakarta.persistence.*;
 import lombok.*;
 

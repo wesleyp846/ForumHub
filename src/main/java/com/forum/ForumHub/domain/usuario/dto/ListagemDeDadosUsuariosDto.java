@@ -1,6 +1,6 @@
-package com.forum.ForumHub.dto;
+package com.forum.ForumHub.domain.usuario.dto;
 
-import com.forum.ForumHub.entity.UsuarioEntity;
+import com.forum.ForumHub.domain.usuario.entity.UsuarioEntity;
 import jakarta.validation.constraints.Email;
 
 public record ListagemDeDadosUsuariosDto(

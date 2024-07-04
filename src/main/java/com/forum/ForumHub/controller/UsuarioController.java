@@ -1,10 +1,10 @@
 package com.forum.ForumHub.controller;
 
-import com.forum.ForumHub.dto.DadosEdicaoDeUsuarioDto;
-import com.forum.ForumHub.dto.DadosNovoUsuarioDto;
-import com.forum.ForumHub.dto.ListagemDeDadosUsuariosDto;
-import com.forum.ForumHub.entity.UsuarioEntity;
-import com.forum.ForumHub.repository.UsuarioRepository;
+import com.forum.ForumHub.domain.usuario.dto.DadosEdicaoDeUsuarioDto;
+import com.forum.ForumHub.domain.usuario.dto.DadosNovoUsuarioDto;
+import com.forum.ForumHub.domain.usuario.dto.ListagemDeDadosUsuariosDto;
+import com.forum.ForumHub.domain.usuario.entity.UsuarioEntity;
+import com.forum.ForumHub.domain.usuario.repository.UsuarioRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
