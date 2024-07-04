@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Table(name = "topicos")
-@Entity(name = "Topico")
+@Entity
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -24,15 +24,16 @@ public class TopicosEntity {
     private LocalDateTime dataCriacao;
 
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private EstadoDoTopicoEnum status;
 
-//    @ManyToOne
-//    @JoinColumn(name = "autor_id")
-    private String autor;
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private UsuarioEntity usuario;
 
 //    @ManyToOne
 //    @JoinColumn(name = "curso_id")
-    private String curso;
+    @Enumerated(EnumType.STRING)
+    private CursoEnum curso;
 
     @OneToMany(mappedBy = "topico")
     private List<RespostaEntity> respostas;
