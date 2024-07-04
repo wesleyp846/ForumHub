@@ -11,4 +11,5 @@ public record DadosNovoTopicoDto(
         String mensagem,
 
         @NotBlank
-        String curso) { }
+        String curso
+) { }

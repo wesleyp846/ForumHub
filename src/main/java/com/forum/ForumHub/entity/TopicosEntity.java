@@ -1,5 +1,6 @@
 package com.forum.ForumHub.entity;
 
+import com.forum.ForumHub.dto.DadosNovoTopicoDto;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -25,24 +26,37 @@ public class TopicosEntity {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @ManyToOne
-    @JoinColumn(name = "autor_id")
-    private UsuarioEntity autor;
+//    @ManyToOne
+//    @JoinColumn(name = "autor_id")
+    private String autor;
 
-    @ManyToOne
-    @JoinColumn(name = "curso_id")
-    private CursoEntity curso;
+//    @ManyToOne
+//    @JoinColumn(name = "curso_id")
+    private String curso;
 
     @OneToMany(mappedBy = "topico")
     private List<RespostaEntity> respostas;
-
-}
-//    @Enumerated(EnumType.STRING)
-//    private Especialidade especialidade;
-//
 //    @Embedded
-//    private Endereco endereco;
+//    private RespostaEntity resposta;
+
+//    public TopicosEntity(DadosNovoTopicoDto dados, CursoEntity curso, UsuarioEntity autor) {
+//        this.titulo = dados.titulo();
+//        this.mensagem = dados.mensagem();
+//        this.dataCriacao = LocalDateTime.now();
+//        this.status = Status.NAO_REPONDIDA;
+//        this.curso = curso;
+//        this.autor = autor;
 //
+//        System.out.println("------------------------");
+//        System.out.println(LocalDateTime.now());
+
+//    public TopicosEntity(DadosNovoTopicoDto dados) {
+//
+//        this.titulo = dados.titulo();
+//        this.mensagem = dados.mensagem();
+//        this.curso = new CursoEntity(dados.curso());
+//    }
+}
 //    public Medico(DadosCadastroMedico dados) {
 //        this.ativo = true;
 //        this.nome = dados.nome();
