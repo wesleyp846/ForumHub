@@ -1,5 +1,6 @@
 package com.forum.ForumHub.controller;
 
+import com.forum.ForumHub.dto.DadosEdicaoDeUsuarioDto;
 import com.forum.ForumHub.dto.DadosNovoUsuarioDto;
 import com.forum.ForumHub.dto.ListagemDeDadosUsuariosDto;
 import com.forum.ForumHub.entity.UsuarioEntity;
@@ -33,9 +34,13 @@ public class UsuarioController {
         usuarioRepository.save(new UsuarioEntity(dados));
     }
 
+    @Transactional
     @PutMapping
-    public void editarUsuario(){
+    public void editarUsuario(@RequestBody @Valid DadosEdicaoDeUsuarioDto dados){
 
+        var usuario = usuarioRepository.getReferenceById(dados.id());
+
+        usuario.editarUsuario(dados);
     }
 //    @Transactional
 //    public ResponseEntity cadastrar(@RequestBody @Valid DadosCadastroPaciente dados, UriComponentsBuilder uriBuilder) {

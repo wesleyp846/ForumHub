@@ -1,5 +1,6 @@
 package com.forum.ForumHub.entity;
 
+import com.forum.ForumHub.dto.DadosEdicaoDeUsuarioDto;
 import com.forum.ForumHub.dto.DadosNovoUsuarioDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -29,6 +30,16 @@ public class UsuarioEntity {
         this.senha = dados.senha();
     }
 
+    public void editarUsuario(DadosEdicaoDeUsuarioDto dados) {
+
+        if (dados.nome() != null){
+            this.nome = dados.nome();
+        }
+        if (dados.email() != null){
+            this.email = dados.email();
+        }
+    }
+
 //    @ManyToMany
 //    @JoinTable(
 //            name = "usuario_perfil",
@@ -36,15 +47,4 @@ public class UsuarioEntity {
 //            inverseJoinColumns = @JoinColumn(name = "perfil_id")
 //    )
 //    private List<PerfilEntity> perfis;
-
-//    public UsuarioEntity(DadosNovoUsuarioDto dados) {
-//        this.nome = dados.nome();
-//        this.email = dados.email();
-//        this.senha = dados.senha();
-//    }
-//    public UsuarioEntity(DadosNovoUsuarioDto dados) {
-//        this.nome = dados.nome();
-//        this.email = dados.email();
-//        this.senha = dados.senha();
-//    }
 }
