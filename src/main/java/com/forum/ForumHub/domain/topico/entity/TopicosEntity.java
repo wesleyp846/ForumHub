@@ -1,10 +1,14 @@
-package com.forum.ForumHub.entity;
+package com.forum.ForumHub.domain.topico.entity;
 
+import com.forum.ForumHub.domain.topico.dto.DadosNovoTopicoDto;
 import com.forum.ForumHub.domain.usuario.entity.UsuarioEntity;
+import com.forum.ForumHub.entity.EstadoDoTopicoEnum;
+import com.forum.ForumHub.entity.RespostaEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Table(name = "topicos")
@@ -26,17 +30,26 @@ public class TopicosEntity {
     @Enumerated(EnumType.STRING)
     private EstadoDoTopicoEnum status;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id")
     private UsuarioEntity usuario;
 
-//    @ManyToOne
-//    @JoinColumn(name = "curso_id")
     @Enumerated(EnumType.STRING)
     private CursoEnum curso;
 
-    @OneToMany(mappedBy = "topico")
+    @OneToMany(mappedBy = "topico", fetch = FetchType.LAZY)
     private List<RespostaEntity> respostas;
+
+    public TopicosEntity(DadosNovoTopicoDto dados, UsuarioEntity usuario) {
+
+        this.titulo = dados.titulo();
+        this.mensagem = dados.mensagem();
+        this.dataCriacao = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
+        this.status = EstadoDoTopicoEnum.NAO_REPONDIDA;
+        this.usuario = usuario;
+        this.curso = dados.curso();
+    }
+
 //    @Embedded
 //    private RespostaEntity resposta;
 

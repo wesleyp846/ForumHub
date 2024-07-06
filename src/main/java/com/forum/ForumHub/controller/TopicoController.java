@@ -1,31 +1,42 @@
 package com.forum.ForumHub.controller;
 
+import com.forum.ForumHub.domain.topico.dto.DadosNovoTopicoDto;
+import com.forum.ForumHub.domain.topico.repository.TopicosRepository;
+import com.forum.ForumHub.domain.topico.entity.TopicosEntity;
+import com.forum.ForumHub.domain.usuario.repository.UsuarioRepository;
+import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 @RestController
 @RequestMapping("/topico")
-public class TopicosController {
+public class TopicoController {
 
-//    @Autowired
-//    private TopicosRepository topicosRepository;
-//
-//    @Autowired
-//    private CursoRepository cursoRepository;
-//
-//    @Autowired
-//    private UsuarioRepository usuarioRepository;
+    @Autowired
+    private TopicosRepository topicosRepository;
+
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
     @GetMapping
-    public String helloMundo(){
-
-        return "Primeiro controller";
+    public void listaUsuario(){
+        var testte = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
+        System.out.println(testte);
     }
 
-//    @PostMapping
-//    public void novoUsuario(@RequestBody @Valid DadosNovoUsuarioDto dados){
-//
-//        System.out.println(dados);
-//    }
+    @Transactional
+    @PostMapping
+    public void novoTopico(@RequestBody @Valid DadosNovoTopicoDto dados){
+
+        var usuario = usuarioRepository.getReferenceById(dados.id_usuario());
+
+        topicosRepository.save(new TopicosEntity(dados, usuario));
+        System.out.println(dados);
+    }
 
 //    @PostMapping
 //    public void novoTopico(@RequestBody DadosNovoTopicoDto dados){

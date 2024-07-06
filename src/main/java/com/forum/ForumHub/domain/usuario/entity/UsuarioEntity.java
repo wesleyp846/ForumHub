@@ -1,5 +1,6 @@
 package com.forum.ForumHub.domain.usuario.entity;
 
+import com.forum.ForumHub.domain.topico.entity.TopicosEntity;
 import com.forum.ForumHub.domain.usuario.dto.DadosEdicaoDeUsuarioDto;
 import com.forum.ForumHub.domain.usuario.dto.DadosNovoUsuarioDto;
 import jakarta.persistence.*;
@@ -7,6 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @Table(name = "usuario")
@@ -24,6 +27,9 @@ public class UsuarioEntity {
     private String nome;
     private String email;
     private String senha;
+
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+    private List<TopicosEntity> topicos;
 
     public UsuarioEntity(DadosNovoUsuarioDto dados) {
         this.nome = dados.nome();

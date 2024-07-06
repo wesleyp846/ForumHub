@@ -1,4 +1,4 @@
-package com.forum.ForumHub.entity;
+package com.forum.ForumHub.domain.topico.entity;
 
 public enum CursoEnum {
 
