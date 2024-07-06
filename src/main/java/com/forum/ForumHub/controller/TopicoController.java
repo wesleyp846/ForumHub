@@ -1,16 +1,18 @@
 package com.forum.ForumHub.controller;
 
 import com.forum.ForumHub.domain.topico.dto.DadosNovoTopicoDto;
+import com.forum.ForumHub.domain.topico.dto.ListagemDeDadosTopicosDto;
 import com.forum.ForumHub.domain.topico.repository.TopicosRepository;
 import com.forum.ForumHub.domain.topico.entity.TopicosEntity;
+import com.forum.ForumHub.domain.usuario.dto.ListagemDeDadosUsuariosDto;
 import com.forum.ForumHub.domain.usuario.repository.UsuarioRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 
 @RestController
 @RequestMapping("/topico")
@@ -23,9 +25,10 @@ public class TopicoController {
     private UsuarioRepository usuarioRepository;
 
     @GetMapping
-    public void listaUsuario(){
-        var testte = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
-        System.out.println(testte);
+    public Page<ListagemDeDadosTopicosDto> listarTopicos(@PageableDefault(size = 10, sort = {"titulo", "id"}) Pageable paginacao){
+
+        return topicosRepository.findAll(paginacao)
+                .map(ListagemDeDadosTopicosDto::new);
     }
 
     @Transactional

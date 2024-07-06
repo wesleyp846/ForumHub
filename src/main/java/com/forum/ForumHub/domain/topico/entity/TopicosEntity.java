@@ -2,7 +2,6 @@ package com.forum.ForumHub.domain.topico.entity;
 
 import com.forum.ForumHub.domain.topico.dto.DadosNovoTopicoDto;
 import com.forum.ForumHub.domain.usuario.entity.UsuarioEntity;
-import com.forum.ForumHub.entity.EstadoDoTopicoEnum;
 import com.forum.ForumHub.entity.RespostaEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -49,27 +48,6 @@ public class TopicosEntity {
         this.usuario = usuario;
         this.curso = dados.curso();
     }
-
-//    @Embedded
-//    private RespostaEntity resposta;
-
-//    public TopicosEntity(DadosNovoTopicoDto dados, CursoEntity curso, UsuarioEntity autor) {
-//        this.titulo = dados.titulo();
-//        this.mensagem = dados.mensagem();
-//        this.dataCriacao = LocalDateTime.now();
-//        this.status = Status.NAO_REPONDIDA;
-//        this.curso = curso;
-//        this.autor = autor;
-//
-//        System.out.println("------------------------");
-//        System.out.println(LocalDateTime.now());
-
-//    public TopicosEntity(DadosNovoTopicoDto dados) {
-//
-//        this.titulo = dados.titulo();
-//        this.mensagem = dados.mensagem();
-//        this.curso = new CursoEntity(dados.curso());
-//    }
 }
 //    public Medico(DadosCadastroMedico dados) {
 //        this.ativo = true;

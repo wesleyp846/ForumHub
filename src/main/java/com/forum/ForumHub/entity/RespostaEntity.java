@@ -1,5 +1,6 @@
 package com.forum.ForumHub.entity;
 
+import com.forum.ForumHub.domain.topico.entity.TopicosEntity;
 import com.forum.ForumHub.domain.usuario.entity.UsuarioEntity;
 import jakarta.persistence.*;
 
