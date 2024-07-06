@@ -1,6 +1,7 @@
 package com.forum.ForumHub.controller;
 
 import com.forum.ForumHub.domain.topico.dto.DadosNovoTopicoDto;
+import com.forum.ForumHub.domain.topico.dto.DetalhaTopicoDTO;
 import com.forum.ForumHub.domain.topico.dto.ListagemDeDadosTopicosDto;
 import com.forum.ForumHub.domain.topico.repository.TopicosRepository;
 import com.forum.ForumHub.domain.topico.entity.TopicosEntity;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -31,6 +33,14 @@ public class TopicoController {
                 .map(ListagemDeDadosTopicosDto::new);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity detalhaTopico(@PathVariable Long id){
+
+            var topico = topicosRepository.getReferenceById(id);
+
+            return ResponseEntity.ok(new DetalhaTopicoDTO(topico));
+    }
+
     @Transactional
     @PostMapping
     public void novoTopico(@RequestBody @Valid DadosNovoTopicoDto dados){
@@ -38,11 +48,7 @@ public class TopicoController {
         var usuario = usuarioRepository.getReferenceById(dados.id_usuario());
 
         topicosRepository.save(new TopicosEntity(dados, usuario));
-        System.out.println(dados);
     }
-
-//    @PostMapping
-//    public void novoTopico(@RequestBody DadosNovoTopicoDto dados){
 
 //    public TopicosEntity criarTopico(DadosNovoTopicoDto dados, Long autorId) {
 //        CursoEntity curso = cursoRepository.findById(dados.cursoId())
@@ -53,23 +59,5 @@ public class TopicoController {
 //
 //        TopicosEntity topico = new TopicosEntity(dados, curso, autor);
 //        return topicoRepository.save(topico);
-//    }
-
-//        topicosRepository.save(new TopicosEntity(dados));
-//        System.out.println(dados);
-//    }
-
-//    public ResponseEntity<ListagemDeTodosOsTopicosDto> listar(){
-//
-//        var page = "repository";
-//
-//        return ResponseEntity.ok(page);
-//
-//    }
-
-//    @GetMapping
-//    public ResponseEntity<Page<DadosListagemMedico>> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao){
-//        var page = repository.findAllByAtivoTrue(paginacao).map(DadosListagemMedico::new);
-//        return ResponseEntity.ok(page);
 //    }
 }
