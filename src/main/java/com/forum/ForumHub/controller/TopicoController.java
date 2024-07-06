@@ -59,6 +59,13 @@ public class TopicoController {
         topico.editarTopico(dados);
     }
 
+    @Transactional
+    @DeleteMapping("/{id}")
+    public void dasativartopico(@PathVariable Long id){
+
+        topicosRepository.deleteById(id);
+    }
+
 //    public TopicosEntity criarTopico(DadosNovoTopicoDto dados, Long autorId) {
 //        CursoEntity curso = cursoRepository.findById(dados.cursoId())
 //                .orElseThrow(() -> new EntityNotFoundException("Curso não encontrado"));
