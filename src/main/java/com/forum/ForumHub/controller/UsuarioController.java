@@ -1,5 +1,6 @@
 package com.forum.ForumHub.controller;
 
+import com.forum.ForumHub.domain.topico.dto.EditarTopicoDto;
 import com.forum.ForumHub.domain.usuario.dto.DadosEdicaoDeUsuarioDto;
 import com.forum.ForumHub.domain.usuario.dto.DadosNovoUsuarioDto;
 import com.forum.ForumHub.domain.usuario.dto.ListagemDeDadosUsuariosDto;
@@ -35,13 +36,17 @@ public class UsuarioController {
     }
 
     @Transactional
-    @PutMapping
-    public void editarUsuario(@RequestBody @Valid DadosEdicaoDeUsuarioDto dados){
+    @PutMapping("/{id}")
+    public void editarUsuario(@PathVariable Long id, @RequestBody @Valid DadosEdicaoDeUsuarioDto dados){
 
-        var usuario = usuarioRepository.getReferenceById(dados.id());
+        //var usuario = usuarioRepository.getReferenceById(dados.id());
+        var usuario = usuarioRepository.getReferenceById(id);
 
         usuario.editarUsuario(dados);
     }
+//        var topico = topicosRepository.getReferenceById(id);
+//        topico.editarTopico(dados);
+//    }
 
     @Transactional
     @DeleteMapping("/{id}")
