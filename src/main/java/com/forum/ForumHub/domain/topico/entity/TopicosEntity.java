@@ -21,7 +21,6 @@ public class TopicosEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "topico_id")
     private Long id;
 
     private String titulo;
@@ -31,12 +30,12 @@ public class TopicosEntity {
     @Enumerated(EnumType.STRING)
     private EstadoDoTopicoEnum status;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "usuario_id")
-    private UsuarioEntity usuario;
-
     @Enumerated(EnumType.STRING)
     private CursoEnum curso;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "usuario")
+    private UsuarioEntity usuario;
 
     @OneToMany(mappedBy = "topico", fetch = FetchType.LAZY)
     private List<EntityResposta> respostas;
