@@ -2,10 +2,11 @@ package com.forum.ForumHub.controller;
 
 import com.forum.ForumHub.domain.topico.dto.DadosNovoTopicoDto;
 import com.forum.ForumHub.domain.topico.dto.DetalhaTopicoDTO;
+import com.forum.ForumHub.domain.topico.dto.EditarTopicoDto;
 import com.forum.ForumHub.domain.topico.dto.ListagemDeDadosTopicosDto;
 import com.forum.ForumHub.domain.topico.repository.TopicosRepository;
 import com.forum.ForumHub.domain.topico.entity.TopicosEntity;
-import com.forum.ForumHub.domain.usuario.dto.ListagemDeDadosUsuariosDto;
+import com.forum.ForumHub.domain.usuario.dto.DadosEdicaoDeUsuarioDto;
 import com.forum.ForumHub.domain.usuario.repository.UsuarioRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -48,6 +49,14 @@ public class TopicoController {
         var usuario = usuarioRepository.getReferenceById(dados.id_usuario());
 
         topicosRepository.save(new TopicosEntity(dados, usuario));
+    }
+
+    @Transactional
+    @PutMapping("/{id}")
+    public void editarTopico(@PathVariable Long id, @RequestBody @Valid EditarTopicoDto dados){
+
+        var topico = topicosRepository.getReferenceById(id);
+        topico.editarTopico(dados);
     }
 
 //    public TopicosEntity criarTopico(DadosNovoTopicoDto dados, Long autorId) {

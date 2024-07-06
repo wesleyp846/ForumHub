@@ -1,6 +1,7 @@
 package com.forum.ForumHub.domain.topico.entity;
 
 import com.forum.ForumHub.domain.topico.dto.DadosNovoTopicoDto;
+import com.forum.ForumHub.domain.topico.dto.EditarTopicoDto;
 import com.forum.ForumHub.domain.usuario.entity.UsuarioEntity;
 import com.forum.ForumHub.entity.RespostaEntity;
 import jakarta.persistence.*;
@@ -47,6 +48,18 @@ public class TopicosEntity {
         this.status = EstadoDoTopicoEnum.NAO_REPONDIDA;
         this.usuario = usuario;
         this.curso = dados.curso();
+    }
+
+    public void editarTopico(EditarTopicoDto dados) {
+        if (dados.titulo() != null) {
+            this.titulo = dados.titulo();
+        }
+        if (dados.mensagem() != null) {
+            this.mensagem = dados.mensagem();
+        }
+        if (dados.status() != null) {
+            this.status = dados.status();
+        }
     }
 }
 //    public Medico(DadosCadastroMedico dados) {
