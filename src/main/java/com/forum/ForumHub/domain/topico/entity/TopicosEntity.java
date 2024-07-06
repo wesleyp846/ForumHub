@@ -1,9 +1,9 @@
 package com.forum.ForumHub.domain.topico.entity;
 
+import com.forum.ForumHub.domain.resposta.entity.EntityResposta;
 import com.forum.ForumHub.domain.topico.dto.DadosNovoTopicoDto;
 import com.forum.ForumHub.domain.topico.dto.EditarTopicoDto;
 import com.forum.ForumHub.domain.usuario.entity.UsuarioEntity;
-import com.forum.ForumHub.entity.RespostaEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,6 +21,7 @@ public class TopicosEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "topico_id")
     private Long id;
 
     private String titulo;
@@ -38,7 +39,7 @@ public class TopicosEntity {
     private CursoEnum curso;
 
     @OneToMany(mappedBy = "topico", fetch = FetchType.LAZY)
-    private List<RespostaEntity> respostas;
+    private List<EntityResposta> respostas;
 
     public TopicosEntity(DadosNovoTopicoDto dados, UsuarioEntity usuario) {
 

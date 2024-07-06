@@ -1,5 +1,6 @@
 package com.forum.ForumHub.domain.usuario.entity;
 
+import com.forum.ForumHub.domain.resposta.entity.EntityResposta;
 import com.forum.ForumHub.domain.topico.entity.TopicosEntity;
 import com.forum.ForumHub.domain.usuario.dto.DadosEdicaoDeUsuarioDto;
 import com.forum.ForumHub.domain.usuario.dto.DadosNovoUsuarioDto;
@@ -30,6 +31,9 @@ public class UsuarioEntity {
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     private List<TopicosEntity> topicos;
+
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
+    private List<EntityResposta> respostas;
 
     public UsuarioEntity(DadosNovoUsuarioDto dados) {
         this.nome = dados.nome();
