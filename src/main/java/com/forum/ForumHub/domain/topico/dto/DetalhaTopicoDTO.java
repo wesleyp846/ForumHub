@@ -1,6 +1,6 @@
 package com.forum.ForumHub.domain.topico.dto;
 
-import com.forum.ForumHub.domain.resposta.entity.EntityResposta;
+import com.forum.ForumHub.domain.resposta.dto.RespostaDTO;
 import com.forum.ForumHub.domain.topico.entity.CursoEnum;
 import com.forum.ForumHub.domain.topico.entity.EstadoDoTopicoEnum;
 import com.forum.ForumHub.domain.topico.entity.TopicosEntity;
@@ -17,11 +17,12 @@ public record DetalhaTopicoDTO(
         LocalDateTime dataCriacao,
         CursoEnum curso,
         EstadoDoTopicoEnum status,
-        List<EntityResposta> reposta) {
+        List<RespostaDTO> respostas) {
 
-    public DetalhaTopicoDTO(TopicosEntity topico) {
-        this(topico.getId(), topico.getUsuario().getNome(), topico.getTitulo(),
-                topico.getMensagem(), topico.getDataCriacao(), topico.getCurso(),
-                topico.getStatus(), topico.getRespostas());
+    public DetalhaTopicoDTO(TopicosEntity topico, String usuarioNome, List<RespostaDTO> respostas) {
+
+        this(topico.getId(), usuarioNome, topico.getTitulo(),
+                topico.getMensagem(), topico.getDataCriacao(),
+                topico.getCurso(), topico.getStatus(), respostas);
     }
 }

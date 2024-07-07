@@ -1,12 +1,13 @@
 package com.forum.ForumHub.controller;
 
+import com.forum.ForumHub.domain.resposta.dto.RespostaDTO;
+import com.forum.ForumHub.domain.resposta.repository.RepositoryResposta;
 import com.forum.ForumHub.domain.topico.dto.DadosNovoTopicoDto;
 import com.forum.ForumHub.domain.topico.dto.DetalhaTopicoDTO;
 import com.forum.ForumHub.domain.topico.dto.EditarTopicoDto;
 import com.forum.ForumHub.domain.topico.dto.ListagemDeDadosTopicosDto;
 import com.forum.ForumHub.domain.topico.repository.TopicosRepository;
 import com.forum.ForumHub.domain.topico.entity.TopicosEntity;
-import com.forum.ForumHub.domain.usuario.dto.DadosEdicaoDeUsuarioDto;
 import com.forum.ForumHub.domain.usuario.repository.UsuarioRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -16,6 +17,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/topico")
@@ -27,6 +30,9 @@ public class TopicoController {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
+    @Autowired
+    private RepositoryResposta repositoryResposta;
+
     @GetMapping
     public Page<ListagemDeDadosTopicosDto> listarTopicos(@PageableDefault(size = 10, sort = {"titulo", "id"}) Pageable paginacao){
 
@@ -35,11 +41,19 @@ public class TopicoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity detalhaTopico(@PathVariable Long id){
+    public ResponseEntity detalhaTopico(@PathVariable Long id) {
+        var topico = topicosRepository.getReferenceById(id);
+        var usuario = topico.getUsuario();
+        var usuarioNome = usuario.getNome();
 
-            var topico = topicosRepository.getReferenceById(id);
+        // Filtrar respostas pelo mesmo usuário e converter para RespostaDTO
+        var respostasDTO = topico.getRespostas().stream()
+                //Aqui é filtrado para exibir apenas repostas do mesmo usuario do topico
+//                .filter(resposta -> resposta.getUsuario().equals(usuario))
+                .map(RespostaDTO::new)
+                .collect(Collectors.toList());
 
-            return ResponseEntity.ok(new DetalhaTopicoDTO(topico));
+        return ResponseEntity.ok(new DetalhaTopicoDTO(topico, usuarioNome, respostasDTO));
     }
 
     @Transactional
@@ -65,15 +79,4 @@ public class TopicoController {
 
         topicosRepository.deleteById(id);
     }
-
-//    public TopicosEntity criarTopico(DadosNovoTopicoDto dados, Long autorId) {
-//        CursoEntity curso = cursoRepository.findById(dados.cursoId())
-//                .orElseThrow(() -> new EntityNotFoundException("Curso não encontrado"));
-//
-//        UsuarioEntity autor = usuarioRepository.findById(autorId)
-//                .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado"));
-//
-//        TopicosEntity topico = new TopicosEntity(dados, curso, autor);
-//        return topicoRepository.save(topico);
-//    }
 }
