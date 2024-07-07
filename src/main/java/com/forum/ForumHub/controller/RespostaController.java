@@ -5,8 +5,6 @@ import com.forum.ForumHub.domain.resposta.dto.DtoDadosNovaResposta;
 import com.forum.ForumHub.domain.resposta.dto.EditarRespostaDto;
 import com.forum.ForumHub.domain.resposta.entity.EntityResposta;
 import com.forum.ForumHub.domain.resposta.repository.RepositoryResposta;
-import com.forum.ForumHub.domain.topico.dto.EditarTopicoDto;
-import com.forum.ForumHub.domain.topico.dto.ListagemDeDadosTopicosDto;
 import com.forum.ForumHub.domain.topico.repository.TopicosRepository;
 import com.forum.ForumHub.domain.usuario.repository.UsuarioRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -20,7 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/resposta")
+@RequestMapping("/respostas")
 public class RespostaController {
 
     @Autowired
@@ -34,21 +32,12 @@ public class RespostaController {
 
 
     @GetMapping
-    public Page<DetalhesRespostaDTO> detalharResposta(@PageableDefault(size = 10, sort = {"dataCriacao", "topico"}) Pageable paginacao) {
+    public ResponseEntity<Page<DetalhesRespostaDTO>> detalharResposta(@PageableDefault(size = 10, sort = {"dataCriacao", "topico"}) Pageable paginacao) {
 
-        return  repositoryResposta.findAll(paginacao)
+        var obejeto = repositoryResposta.findAll(paginacao)
                 .map(DetalhesRespostaDTO::new);
 
-//            return topicosRepository.findAll(paginacao)
-//                    .map(ListagemDeDadosTopicosDto::new);
-//        }
-//        var topico = topicosRepository.getReferenceById(dados.topico().getId());
-//        var usuario = usuarioRepository.getReferenceById(dados.usuario().getId());
-
-
-
-//        DetalhesRespostaDTO detalhesResposta = respostaService.detalharResposta(id);
-//        return ResponseEntity.ok();
+        return ResponseEntity.ok(obejeto);
     }
 
     @Transactional
@@ -73,9 +62,14 @@ public class RespostaController {
 
     @Transactional
     @DeleteMapping("/{id}")
-    public void apagaResposta(@PathVariable Long id){
+    public ResponseEntity apagaResposta(@PathVariable Long id){
 
-        repositoryResposta.deleteById(id);
+        if (repositoryResposta.existsById(id)){
+            repositoryResposta.deleteById(id);
+        }else {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.noContent().build();
     }
 
 //    @PostMapping

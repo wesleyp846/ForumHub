@@ -1,6 +1,5 @@
 package com.forum.ForumHub.controller;
 
-import com.forum.ForumHub.domain.topico.dto.EditarTopicoDto;
 import com.forum.ForumHub.domain.usuario.dto.DadosEdicaoDeUsuarioDto;
 import com.forum.ForumHub.domain.usuario.dto.DadosNovoUsuarioDto;
 import com.forum.ForumHub.domain.usuario.dto.ListagemDeDadosUsuariosDto;
@@ -12,20 +11,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/usuario")
+@RequestMapping("/usuarios")
 public class UsuarioController {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
 
     @GetMapping
-    public Page<ListagemDeDadosUsuariosDto> listaUsuario(@PageableDefault(size = 10, sort = {"nome", "id"}) Pageable paginacao){
+    public ResponseEntity<Page<ListagemDeDadosUsuariosDto>> listaUsuario(@PageableDefault(size = 10, sort = {"nome", "id"}) Pageable paginacao){
 
-        return usuarioRepository.findAll(paginacao)
+        var objeto = usuarioRepository.findAll(paginacao)
                 .map(ListagemDeDadosUsuariosDto::new);
+
+        return ResponseEntity.ok(objeto);
     }
 
     @Transactional
@@ -50,9 +52,14 @@ public class UsuarioController {
 
     @Transactional
     @DeleteMapping("/{id}")
-    public void dasativarUsuario(@PathVariable Long id){
+    public ResponseEntity dasativarUsuario(@PathVariable Long id){
 
-        usuarioRepository.deleteById(id);
+        if (usuarioRepository.existsById(id)){
+            usuarioRepository.deleteById(id);
+        }else {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.noContent().build();
     }
 
 //    @Transactional

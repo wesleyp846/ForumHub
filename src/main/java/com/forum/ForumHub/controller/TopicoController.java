@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/topico")
+@RequestMapping("/topicos")
 public class TopicoController {
 
     @Autowired
@@ -39,12 +39,14 @@ public class TopicoController {
     private TopicoService topicoService;
 
     @GetMapping
-    public Page<ListagemDeDadosTopicosDto> listarTopicos(
+    public ResponseEntity<Page<ListagemDeDadosTopicosDto>> listarTopicos(
             @PageableDefault(size = 10, sort = {"dataCriacao"}, direction = Sort.Direction.ASC)
             Pageable paginacao){
 
-        return topicosRepository.findAll(paginacao)
+        var objeto =  topicosRepository.findAll(paginacao)
                 .map(ListagemDeDadosTopicosDto::new);
+
+        return ResponseEntity.ok(objeto);
     }
 
     @GetMapping("/{id}")
@@ -86,12 +88,13 @@ public class TopicoController {
 
     @Transactional
     @DeleteMapping("/{id}")
-    public void dasativartopico(@PathVariable Long id){
+    public ResponseEntity dasativartopico(@PathVariable Long id){
 
         if (topicosRepository.existsById(id)){
             topicosRepository.deleteById(id);
         }else {
-            System.out.println("escrever algo se não existe id no banco de dados");
+            return ResponseEntity.notFound().build();
         }
+        return ResponseEntity.noContent().build();
     }
 }
