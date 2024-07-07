@@ -30,9 +30,10 @@ public class RespostaController {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-
     @GetMapping
-    public ResponseEntity<Page<DetalhesRespostaDTO>> detalharResposta(@PageableDefault(size = 10, sort = {"dataCriacao", "topico"}) Pageable paginacao) {
+    public ResponseEntity<Page<DetalhesRespostaDTO>> detalharResposta(
+            @PageableDefault(size = 10, sort = {"dataCriacao", "topico"})
+            Pageable paginacao) {
 
         var obejeto = repositoryResposta.findAll(paginacao)
                 .map(DetalhesRespostaDTO::new);

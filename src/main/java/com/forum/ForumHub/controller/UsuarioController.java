@@ -22,7 +22,9 @@ public class UsuarioController {
     private UsuarioRepository usuarioRepository;
 
     @GetMapping
-    public ResponseEntity<Page<ListagemDeDadosUsuariosDto>> listaUsuario(@PageableDefault(size = 10, sort = {"nome", "id"}) Pageable paginacao){
+    public ResponseEntity<Page<ListagemDeDadosUsuariosDto>> listaUsuario(
+            @PageableDefault(size = 10, sort = {"nome", "id"})
+            Pageable paginacao){
 
         var objeto = usuarioRepository.findAll(paginacao)
                 .map(ListagemDeDadosUsuariosDto::new);

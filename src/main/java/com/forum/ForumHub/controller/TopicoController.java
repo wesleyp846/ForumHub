@@ -3,10 +3,7 @@ package com.forum.ForumHub.controller;
 import com.forum.ForumHub.domain.resposta.dto.RespostaDTO;
 import com.forum.ForumHub.domain.resposta.repository.RepositoryResposta;
 import com.forum.ForumHub.domain.service.TopicoService;
-import com.forum.ForumHub.domain.topico.dto.DadosNovoTopicoDto;
-import com.forum.ForumHub.domain.topico.dto.DetalhaTopicoDTO;
-import com.forum.ForumHub.domain.topico.dto.EditarTopicoDto;
-import com.forum.ForumHub.domain.topico.dto.ListagemDeDadosTopicosDto;
+import com.forum.ForumHub.domain.topico.dto.*;
 import com.forum.ForumHub.domain.topico.repository.TopicosRepository;
 import com.forum.ForumHub.domain.topico.entity.TopicosEntity;
 import com.forum.ForumHub.domain.usuario.repository.UsuarioRepository;
@@ -76,13 +73,17 @@ public class TopicoController {
 
     @Transactional
     @PutMapping("/{id}")
-    public void editarTopico(@PathVariable Long id, @RequestBody @Valid EditarTopicoDto dados){
+    public ResponseEntity<RespostaEditaTopicoDTO> editarTopico(
+            @PathVariable Long id,
+            @RequestBody @Valid EditarTopicoDto dados){
 
         if (topicosRepository.existsById(id)){
             var topico = topicosRepository.getReferenceById(id);
             topico.editarTopico(dados);
+
+            return ResponseEntity.ok(new RespostaEditaTopicoDTO(topico));
         }else {
-            System.out.println("escrever algo se não existe id no banco de dados");
+            return ResponseEntity.notFound().build();
         }
     }
 
