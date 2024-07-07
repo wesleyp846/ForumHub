@@ -2,6 +2,7 @@ package com.forum.ForumHub.controller;
 
 import com.forum.ForumHub.domain.resposta.dto.RespostaDTO;
 import com.forum.ForumHub.domain.resposta.repository.RepositoryResposta;
+import com.forum.ForumHub.domain.service.TopicoService;
 import com.forum.ForumHub.domain.topico.dto.DadosNovoTopicoDto;
 import com.forum.ForumHub.domain.topico.dto.DetalhaTopicoDTO;
 import com.forum.ForumHub.domain.topico.dto.EditarTopicoDto;
@@ -33,8 +34,13 @@ public class TopicoController {
     @Autowired
     private RepositoryResposta repositoryResposta;
 
+    @Autowired
+    private TopicoService topicoService;
+
     @GetMapping
-    public Page<ListagemDeDadosTopicosDto> listarTopicos(@PageableDefault(size = 10, sort = {"titulo", "id"}) Pageable paginacao){
+    public Page<ListagemDeDadosTopicosDto> listarTopicos(
+            @PageableDefault(size = 10, sort = {"titulo", "id"})
+            Pageable paginacao){
 
         return topicosRepository.findAll(paginacao)
                 .map(ListagemDeDadosTopicosDto::new);
@@ -46,7 +52,7 @@ public class TopicoController {
         var usuario = topico.getUsuario();
         var usuarioNome = usuario.getNome();
 
-        // Filtrar respostas pelo mesmo usuário e converter para RespostaDTO
+//        Filtrar respostas pelo mesmo usuário e converter para RespostaDTO
         var respostasDTO = topico.getRespostas().stream()
                 //Aqui é filtrado para exibir apenas repostas do mesmo usuario do topico
 //                .filter(resposta -> resposta.getUsuario().equals(usuario))
@@ -56,14 +62,23 @@ public class TopicoController {
         return ResponseEntity.ok(new DetalhaTopicoDTO(topico, usuarioNome, respostasDTO));
     }
 
-    @Transactional
+    @PostMapping
+    public ResponseEntity<DadosNovoTopicoDto> criarNovoTopico(@RequestBody
+                                                             DadosNovoTopicoDto dadosNovoTopicoDto) {
+
+        var usuario = usuarioRepository.getReferenceById(dadosNovoTopicoDto.id_usuario());
+        TopicosEntity novoTopico = topicoService.criarNovoTopico(dadosNovoTopicoDto, usuario);
+        return ResponseEntity.ok(dadosNovoTopicoDto);
+    }
+
+ /*   @Transactional
     @PostMapping
     public void novoTopico(@RequestBody @Valid DadosNovoTopicoDto dados){
 
         var usuario = usuarioRepository.getReferenceById(dados.id_usuario());
 
         topicosRepository.save(new TopicosEntity(dados, usuario));
-    }
+    }*/
 
     @Transactional
     @PutMapping("/{id}")

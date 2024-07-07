@@ -1,7 +1,6 @@
 package com.forum.ForumHub.domain.topico.entity;
 
 import com.forum.ForumHub.domain.resposta.entity.EntityResposta;
-import com.forum.ForumHub.domain.topico.dto.DadosNovoTopicoDto;
 import com.forum.ForumHub.domain.topico.dto.EditarTopicoDto;
 import com.forum.ForumHub.domain.usuario.entity.UsuarioEntity;
 import jakarta.persistence.*;
@@ -40,45 +39,26 @@ public class TopicosEntity {
     @OneToMany(mappedBy = "topico", fetch = FetchType.LAZY)
     private List<EntityResposta> respostas;
 
-    public TopicosEntity(DadosNovoTopicoDto dados, UsuarioEntity usuario) {
+    public TopicosEntity(String titulo, String mensagem, CursoEnum curso, UsuarioEntity usuario) {
 
-        this.titulo = dados.titulo();
-        this.mensagem = dados.mensagem();
+        this.titulo = titulo;
+        this.mensagem = mensagem;
         this.dataCriacao = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
         this.status = EstadoDoTopicoEnum.NAO_REPONDIDA;
+        this.curso = curso;
         this.usuario = usuario;
-        this.curso = dados.curso();
-    }
+        }
+
 
     public void editarTopico(EditarTopicoDto dados) {
-        if (dados.titulo() != null) {
+        if (dados.titulo() != null){
             this.titulo = dados.titulo();
         }
-        if (dados.mensagem() != null) {
+        if (dados.mensagem() != null){
             this.mensagem = dados.mensagem();
         }
-        if (dados.status() != null) {
+        if (dados.status() != null){
             this.status = dados.status();
         }
     }
 }
-//    public Medico(DadosCadastroMedico dados) {
-//        this.ativo = true;
-//        this.crm = dados.crm();
-//        this.especialidade = dados.especialidade();
-//        this.endereco = new Endereco(dados.endereco());
-//    }
-//
-//    public void atualizarInformacoes(DadosAtualizacaoMedico dados) {
-//        if (dados.email() != null) {
-//            this.email = dados.email();
-//        }
-//        if (dados.endereco() != null) {
-//            this.endereco.atualizarInformacoes(dados.endereco());
-//        }
-//    }
-//
-//    public void excluir() {
-//        this.ativo = false;
-//    }
-//}
