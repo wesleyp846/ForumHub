@@ -1,8 +1,6 @@
 package com.forum.ForumHub.domain.resposta.dto;
 
 import com.forum.ForumHub.domain.resposta.entity.EntityResposta;
-import com.forum.ForumHub.domain.topico.entity.TopicosEntity;
-import com.forum.ForumHub.domain.usuario.entity.UsuarioEntity;
 
 import java.time.LocalDateTime;
 
@@ -10,8 +8,8 @@ public record DetalhesRespostaDTO(
 
         Long id,
         LocalDateTime dataCriacao,
-        UsuarioEntity usuario,
-        TopicosEntity topico,
+        String usuario,
+        String topico,
         String resposta
 ) {
 //    public DetalhesRespostaDTO(DetalhesRespostaDTO dados){
@@ -21,6 +19,10 @@ public record DetalhesRespostaDTO(
 
     public DetalhesRespostaDTO(EntityResposta dados) {
 
-        this(dados.getId(), dados.getDataCriacao(), dados.getUsuario(), dados.getTopico(), dados.getResposta());
+        this(dados.getId(),
+                dados.getDataCriacao(),
+                dados.getUsuario().getNome(),
+                dados.getTopico().getMensagem(),
+                dados.getResposta());
     }
 }
