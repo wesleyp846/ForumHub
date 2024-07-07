@@ -75,9 +75,12 @@ public class TopicoController {
     @Transactional
     @PutMapping("/{id}")
     public void editarTopico(@PathVariable Long id, @RequestBody @Valid EditarTopicoDto dados){
-
-        var topico = topicosRepository.getReferenceById(id);
-        topico.editarTopico(dados);
+        if (topicosRepository.existsById(id)){
+            var topico = topicosRepository.getReferenceById(id);
+            topico.editarTopico(dados);
+        }else {
+            System.out.println("escrever algo se não existe id no banco de dados");
+        }
     }
 
     @Transactional
