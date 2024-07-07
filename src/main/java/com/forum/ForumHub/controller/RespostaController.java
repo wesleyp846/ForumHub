@@ -72,9 +72,10 @@ public class RespostaController {
     }
 
     @Transactional
-    @DeleteMapping
-    public void apagaResposta(){
+    @DeleteMapping("/{id}")
+    public void apagaResposta(@PathVariable Long id){
 
+        repositoryResposta.deleteById(id);
     }
 
 //    @PostMapping
