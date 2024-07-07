@@ -2,8 +2,10 @@ package com.forum.ForumHub.controller;
 
 import com.forum.ForumHub.domain.resposta.dto.DetalhesRespostaDTO;
 import com.forum.ForumHub.domain.resposta.dto.DtoDadosNovaResposta;
+import com.forum.ForumHub.domain.resposta.dto.EditarRespostaDto;
 import com.forum.ForumHub.domain.resposta.entity.EntityResposta;
 import com.forum.ForumHub.domain.resposta.repository.RepositoryResposta;
+import com.forum.ForumHub.domain.topico.dto.EditarTopicoDto;
 import com.forum.ForumHub.domain.topico.dto.ListagemDeDadosTopicosDto;
 import com.forum.ForumHub.domain.topico.repository.TopicosRepository;
 import com.forum.ForumHub.domain.usuario.repository.UsuarioRepository;
@@ -59,6 +61,20 @@ public class RespostaController {
         var usuario = usuarioRepository.getReferenceById(dados.id_usuario());
 
         repositoryResposta.save(new EntityResposta(topico, usuario, dados));
+    }
+
+    @Transactional
+    @PutMapping("/{id}")
+    public void editaResposta(@PathVariable Long id, @RequestBody @Valid EditarRespostaDto dados){
+
+        var resposta = repositoryResposta.getReferenceById(id);
+        resposta.editarTopico(dados);
+    }
+
+    @Transactional
+    @DeleteMapping
+    public void apagaResposta(){
+
     }
 
 //    @PostMapping

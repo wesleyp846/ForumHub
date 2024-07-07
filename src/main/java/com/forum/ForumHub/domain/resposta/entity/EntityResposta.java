@@ -1,6 +1,7 @@
 package com.forum.ForumHub.domain.resposta.entity;
 
 import com.forum.ForumHub.domain.resposta.dto.DtoDadosNovaResposta;
+import com.forum.ForumHub.domain.resposta.dto.EditarRespostaDto;
 import com.forum.ForumHub.domain.topico.entity.TopicosEntity;
 import com.forum.ForumHub.domain.usuario.entity.UsuarioEntity;
 import jakarta.persistence.*;
@@ -42,5 +43,11 @@ public class EntityResposta {
         this.usuario = usuario;
         this.resposta = dados.resposta();
         this.dataCriacao = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
+    }
+
+    public void editarTopico(EditarRespostaDto dados) {
+        if (dados.resposta() != null) {
+            this.resposta = dados.resposta();
+        }
     }
 }
