@@ -10,19 +10,23 @@ import java.util.List;
 
 public record DetalhaTopicoDTO(
 
-        Long id,
-        String usuarioNome,
-        String titulo,
-        String mensagem,
-        LocalDateTime dataCriacao,
-        CursoEnum curso,
-        EstadoDoTopicoEnum status,
-        List<RespostaDTO> respostas) {
+    String titulo,
+    String mensagem,
+    LocalDateTime dataCriacao,
+    EstadoDoTopicoEnum status,
+    String autor,
+    CursoEnum curso,
+
+    List<RespostaDTO> respostas) {
 
     public DetalhaTopicoDTO(TopicosEntity topico, String usuarioNome, List<RespostaDTO> respostas) {
 
-        this(topico.getId(), usuarioNome, topico.getTitulo(),
-                topico.getMensagem(), topico.getDataCriacao(),
-                topico.getCurso(), topico.getStatus(), respostas);
+        this(topico.getTitulo(),
+                topico.getMensagem(),
+                topico.getDataCriacao(),
+                topico.getStatus(),
+                usuarioNome,
+                topico.getCurso(),
+                respostas);
     }
 }

@@ -2,6 +2,7 @@ package com.forum.ForumHub.domain.topico.dto;
 
 import com.forum.ForumHub.domain.topico.entity.EstadoDoTopicoEnum;
 import com.forum.ForumHub.domain.topico.entity.TopicosEntity;
+import com.forum.ForumHub.domain.usuario.dto.UsuarioSimplesDTO;
 import com.forum.ForumHub.domain.usuario.entity.UsuarioEntity;
 
 import java.time.LocalDateTime;
@@ -12,7 +13,8 @@ public record ListagemDeDadosTopicosDto(
         String titulo,
         String mensagem,
         LocalDateTime dataCriacao,
-        EstadoDoTopicoEnum status
+        EstadoDoTopicoEnum status,
+        UsuarioSimplesDTO autor
 ){
     public ListagemDeDadosTopicosDto(TopicosEntity topico){
 
@@ -20,6 +22,7 @@ public record ListagemDeDadosTopicosDto(
                 topico.getTitulo(),
                 topico.getMensagem(),
                 topico.getDataCriacao(),
-                topico.getStatus());
+                topico.getStatus(),
+                new UsuarioSimplesDTO(String.valueOf(topico.getUsuario().getNome())));
     }
 }

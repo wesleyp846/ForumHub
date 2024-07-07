@@ -5,7 +5,7 @@ import com.forum.ForumHub.domain.resposta.entity.EntityResposta;
 public record RespostaDTO(
 
         String resposta,
-        String autorNome) {
+        String autor) {
 
     public RespostaDTO(EntityResposta resposta) {
         this(resposta.getResposta(), resposta.getUsuario().getNome());
