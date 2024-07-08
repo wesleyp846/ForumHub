@@ -68,6 +68,7 @@ public class TopicoController {
 
         var usuario = usuarioRepository.getReferenceById(dadosNovoTopicoDto.id_usuario());
         TopicosEntity novoTopico = topicoService.criarNovoTopico(dadosNovoTopicoDto, usuario);
+
         return ResponseEntity.ok(dadosNovoTopicoDto);
     }
 
