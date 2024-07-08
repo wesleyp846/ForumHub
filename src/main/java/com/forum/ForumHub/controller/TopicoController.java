@@ -49,6 +49,7 @@ public class TopicoController {
 
     @GetMapping("/{id}")
     public ResponseEntity detalhaTopico(@PathVariable Long id) {
+
         var topico = topicosRepository.getReferenceById(id);
         var usuario = topico.getUsuario();
         var usuarioNome = usuario.getNome();
