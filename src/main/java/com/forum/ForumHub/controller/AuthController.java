@@ -1,6 +1,8 @@
 package com.forum.ForumHub.controller;
 
+import com.forum.ForumHub.domain.auth.AdmEntity;
 import com.forum.ForumHub.domain.auth.EnvioAutenticacaoDTO;
+import com.forum.ForumHub.infra.segurancaConfig.TokenService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,9 @@ public class AuthController {
     @Autowired
     private AuthenticationManager manager;
 
+    @Autowired
+    private TokenService tokenService;
+
     @PostMapping
     public ResponseEntity efeturarLogin(@RequestBody @Valid EnvioAutenticacaoDTO dados){
 
@@ -27,6 +32,6 @@ public class AuthController {
 
         var autenticacao = manager.authenticate(token);
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(tokenService.gerarToken((AdmEntity) autenticacao.getPrincipal()));
     }
 }
