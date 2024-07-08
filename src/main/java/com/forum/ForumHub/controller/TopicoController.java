@@ -16,6 +16,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.stream.Collectors;
 
@@ -64,12 +65,16 @@ public class TopicoController {
 
     @PostMapping
     public ResponseEntity<DadosNovoTopicoDto> criarNovoTopico(@RequestBody
-                                                             DadosNovoTopicoDto dadosNovoTopicoDto) {
+                                                             DadosNovoTopicoDto dadosNovoTopicoDto,
+                                                              UriComponentsBuilder uriBulder) {
 
         var usuario = usuarioRepository.getReferenceById(dadosNovoTopicoDto.id_usuario());
         TopicosEntity novoTopico = topicoService.criarNovoTopico(dadosNovoTopicoDto, usuario);
 
-        return ResponseEntity.ok(dadosNovoTopicoDto);
+        var uri = uriBulder.path("/topicos/{id}").buildAndExpand(novoTopico.getId()).toUri();
+
+        return ResponseEntity.created(uri).body(dadosNovoTopicoDto);
+//        return ResponseEntity.ok(dadosNovoTopicoDto);
     }
 
     @Transactional
