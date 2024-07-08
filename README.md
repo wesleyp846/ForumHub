@@ -210,4 +210,38 @@ Primeiro commit na data de 29/06/2024
 
 ### Demonstrativos:
 
-![img/EstruturaDeArquivos.png](https://github.com/wesleyp846/ConvesorDeMoeda)
+
+> Demonstração da API rodando em terminal no servidor
+
+![Demonstração da API rodando em terminal no servidor](https://github.com/wesleyp846/ForumHub/blob/main/img/imagemDoTerminal.png)
+
+&nbsp;
+&nbsp;
+
+> Demonstração dos retornos da API via Insomnia
+
+![Demonstração da API rodando em requisições backend](https://github.com/wesleyp846/ForumHub/blob/main/img/ExemploDeRespostaDaAPI.png)
+
+&nbsp;
+&nbsp;
+
+
+> Demonstração da documentação adicioal SWAGGER
+
+![Demonstração da documentação Swagger adicinal da API](https://github.com/wesleyp846/ForumHub/blob/main/img/TelaDocumentacaoSwagger.png)
+
+&nbsp;
+&nbsp;
+
+
+> Demonstação das tabelas no Banco de Dados
+
+![Demonstração do banco de dados da API](https://github.com/wesleyp846/ForumHub/blob/main/img/TabelasNoDB.png)
+
+&nbsp;
+&nbsp;
+
+
+> Demonstração da estrutura de arquivos do codigo fonte
+
+![Demonstração da estrutura de arquivos](https://github.com/wesleyp846/ForumHub/blob/main/img/EstruturaDeArquivos.png)
