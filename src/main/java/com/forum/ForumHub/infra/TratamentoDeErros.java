@@ -19,13 +19,11 @@ public class TratamentoDeErros {
     public  ResponseEntity tratarErro400(MethodArgumentNotValidException ex){
         var erros = ex.getFieldErrors();
 
-        return ResponseEntity.badRequest().body(erros.stream().map(DadosErrorValidation::new).toList());
+        return ResponseEntity.badRequest().
+                body(erros.stream()
+                .map(DadosErrorValidation::new)
+                .toList());
     }
-
-//    @ExceptionHandler(ValidacaoException.class)
-//    public  ResponseEntity tratarErroRegraDeNgocio(ValidacaoException ex){
-//        return ResponseEntity.badRequest().body(ex.getMessage());
-//    }
 
     private record DadosErrorValidation(String campo, String mensagem){
 
