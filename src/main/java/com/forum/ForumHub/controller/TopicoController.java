@@ -66,7 +66,7 @@ public class TopicoController {
 
     @PostMapping
     public ResponseEntity<DadosNovoTopicoDto> criarNovoTopico(@RequestBody
-                                                             DadosNovoTopicoDto dadosNovoTopicoDto,
+                                                             @Valid DadosNovoTopicoDto dadosNovoTopicoDto,
                                                               UriComponentsBuilder uriBulder) {
 
         var usuario = usuarioRepository.getReferenceById(dadosNovoTopicoDto.id_usuario());
