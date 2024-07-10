@@ -14,6 +14,7 @@ public class TopicoService {
     private TopicosRepository topicosRepository;
 
     public void validarTopicoDuplicado(DadosNovoTopicoDto dadosNovoTopicoDto) {
+
         boolean exists = topicosRepository.existsByTituloAndMensagem(
                 dadosNovoTopicoDto.titulo(), dadosNovoTopicoDto.mensagem());
         if (exists) {
@@ -21,13 +22,18 @@ public class TopicoService {
         }
     }
 
-    public TopicosEntity criarNovoTopico(DadosNovoTopicoDto dadosNovoTopicoDto, UsuarioEntity usuario) {
+    public TopicosEntity criarNovoTopico(
+            DadosNovoTopicoDto dadosNovoTopicoDto,
+            UsuarioEntity usuario) {
+
         validarTopicoDuplicado(dadosNovoTopicoDto);
+
         TopicosEntity novoTopico = new TopicosEntity(
                 dadosNovoTopicoDto.titulo(),
                 dadosNovoTopicoDto.mensagem(),
                 dadosNovoTopicoDto.curso(),
                 usuario);
+
         return topicosRepository.save(novoTopico);
     }
 

@@ -19,6 +19,7 @@ public class TokenService {
     private String secret;
 
     public String gerarToken(AdmEntity adm){
+
         try {
             var algoritmo = Algorithm.HMAC256(secret);
             return JWT.create()
@@ -32,6 +33,7 @@ public class TokenService {
     }
 
     public String getSubject(String tokenJWT) {
+
         try {
             var algoritmo = Algorithm.HMAC256(secret);
             return JWT.require(algoritmo)
@@ -45,6 +47,7 @@ public class TokenService {
     }
 
     private Instant dataExpiracao() {
+
         return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
     }
 }
