@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("/usuarios")
@@ -34,23 +35,32 @@ public class UsuarioController {
 
     @Transactional
     @PostMapping
-    public void novoUsuario(@RequestBody @Valid DadosNovoUsuarioDto dados){
+    public ResponseEntity<DadosNovoUsuarioDto> novoUsuario(@RequestBody
+                                @Valid DadosNovoUsuarioDto dados,
+                                UriComponentsBuilder uriBulder){
 
-        usuarioRepository.save(new UsuarioEntity(dados));
+        var usuario = usuarioRepository.save(new UsuarioEntity(dados));
+
+        var uri = uriBulder.path("/topicos/{id}").buildAndExpand(usuario.getId()).toUri();
+
+        return ResponseEntity.created(uri).body(dados);
     }
 
     @Transactional
     @PutMapping("/{id}")
-    public void editarUsuario(@PathVariable Long id, @RequestBody @Valid DadosEdicaoDeUsuarioDto dados){
+    public ResponseEntity<DadosEdicaoDeUsuarioDto> editarUsuario(@PathVariable Long id,
+                              @RequestBody @Valid DadosEdicaoDeUsuarioDto dados){
 
-        //var usuario = usuarioRepository.getReferenceById(dados.id());
-        var usuario = usuarioRepository.getReferenceById(id);
+        if (usuarioRepository.existsById(id)){
+            var usuario = usuarioRepository.getReferenceById(id);
 
-        usuario.editarUsuario(dados);
+            usuario.editarUsuario(dados);
+
+            return ResponseEntity.ok(new DadosEdicaoDeUsuarioDto(dados.nome(), dados.email()));
+        }else {
+            return ResponseEntity.notFound().build();
+        }
     }
-//        var topico = topicosRepository.getReferenceById(id);
-//        topico.editarTopico(dados);
-//    }
 
     @Transactional
     @DeleteMapping("/{id}")
@@ -63,13 +73,4 @@ public class UsuarioController {
         }
         return ResponseEntity.noContent().build();
     }
-
-//    @Transactional
-//    public ResponseEntity cadastrar(@RequestBody @Valid DadosCadastroPaciente dados, UriComponentsBuilder uriBuilder) {
-//        var paciente = new Paciente(dados);
-//        repository.save(paciente);
-//
-//        var uri = uriBuilder.path("/pacientes/{id}").buildAndExpand(paciente.getId()).toUri();
-//        return ResponseEntity.created(uri).body(new DadosDetalhamentoPaciente(paciente));
-//    }
 }

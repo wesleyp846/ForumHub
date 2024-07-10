@@ -1,7 +1,6 @@
 package com.forum.ForumHub.controller;
 
 import com.forum.ForumHub.domain.resposta.dto.RespostaDTO;
-import com.forum.ForumHub.domain.resposta.repository.RepositoryResposta;
 import com.forum.ForumHub.domain.service.TopicoService;
 import com.forum.ForumHub.domain.topico.dto.*;
 import com.forum.ForumHub.domain.topico.repository.TopicosRepository;
@@ -31,15 +30,12 @@ public class TopicoController {
     private UsuarioRepository usuarioRepository;
 
     @Autowired
-    private RepositoryResposta repositoryResposta;
-
-    @Autowired
     private TopicoService topicoService;
 
     @GetMapping
     public ResponseEntity<Page<ListagemDeDadosTopicosDto>> listarTopicos(
-            @PageableDefault(size = 10, sort = {"dataCriacao"}, direction = Sort.Direction.ASC)
-            Pageable paginacao){
+            @PageableDefault(size = 10, sort = {"dataCriacao"},
+                    direction = Sort.Direction.ASC) Pageable paginacao){
 
         var objeto =  topicosRepository.findAll(paginacao)
                 .map(ListagemDeDadosTopicosDto::new);
@@ -56,7 +52,7 @@ public class TopicoController {
 
 //        Filtrar respostas pelo mesmo usuário e converter para RespostaDTO
         var respostasDTO = topico.getRespostas().stream()
-                //Aqui é filtrado para exibir apenas repostas do mesmo usuario do topico
+//                Aqui é filtrado para exibir apenas repostas do mesmo usuario do topico
 //                .filter(resposta -> resposta.getUsuario().equals(usuario))
                 .map(RespostaDTO::new)
                 .collect(Collectors.toList());
@@ -75,7 +71,6 @@ public class TopicoController {
         var uri = uriBulder.path("/topicos/{id}").buildAndExpand(novoTopico.getId()).toUri();
 
         return ResponseEntity.created(uri).body(dadosNovoTopicoDto);
-//        return ResponseEntity.ok(dadosNovoTopicoDto);
     }
 
     @Transactional

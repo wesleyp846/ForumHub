@@ -16,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("/respostas")
@@ -43,22 +44,38 @@ public class RespostaController {
 
     @Transactional
     @PostMapping("/{id}")
-    public void criarResposta(@PathVariable Long id, @RequestBody @Valid DtoDadosNovaResposta dados){
+    public ResponseEntity<DtoDadosNovaResposta> criarResposta(
+            @PathVariable Long id,
+            @RequestBody @Valid DtoDadosNovaResposta dados,
+            UriComponentsBuilder uriBulder){
 
         var topico = topicosRepository.findById(id).
                 orElseThrow(() -> new EntityNotFoundException("Tópico não encontrado"));
 
         var usuario = usuarioRepository.getReferenceById(dados.id_usuario());
 
-        repositoryResposta.save(new EntityResposta(topico, usuario, dados));
+        var resposta = repositoryResposta.save(new EntityResposta(topico, usuario, dados));
+
+        var uri = uriBulder.path("/respostas/{id}").buildAndExpand(resposta.getId()).toUri();
+
+        return ResponseEntity.created(uri).body(dados);
     }
 
     @Transactional
     @PutMapping("/{id}")
-    public void editaResposta(@PathVariable Long id, @RequestBody @Valid EditarRespostaDto dados){
+    public ResponseEntity<EditarRespostaDto> editaResposta(
+            @PathVariable Long id,
+            @RequestBody @Valid EditarRespostaDto dados){
 
-        var resposta = repositoryResposta.getReferenceById(id);
-        resposta.editarTopico(dados);
+        if (repositoryResposta.existsById(id)){
+
+            var resposta = repositoryResposta.getReferenceById(id);
+            resposta.editarTopico(dados);
+
+            return ResponseEntity.ok(dados);
+        }else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @Transactional
@@ -72,13 +89,4 @@ public class RespostaController {
         }
         return ResponseEntity.noContent().build();
     }
-
-//    @PostMapping
-//    public ResponseEntity<DetalhesRespostaDTO> criarResposta(@RequestBody @Valid CriaRespostaDTO dto, UriComponentsBuilder uriBuilder) {
-//        DetalhesRespostaDTO respostaCriada = respostaService.criarResposta(dto);
-//
-//        var uri = uriBuilder.path("/respostas/{id}").buildAndExpand(respostaCriada.id()).toUri();
-//
-//        return ResponseEntity.created(uri).body(respostaCriada);
-//    }
 }
