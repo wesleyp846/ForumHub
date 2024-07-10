@@ -1,6 +1,7 @@
 package com.forum.ForumHub.domain.auth;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -23,7 +24,11 @@ public class AdmEntity implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotNull(message = "Login é obrigatório")
     private String login;
+
+    @NotNull(message = "A senha é obrigatória")
     private String senha;
 
     @Override
