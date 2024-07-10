@@ -10,6 +10,8 @@ public record RespostaEditaTopicoDTO(
         EstadoDoTopicoEnum status) {
 
     public RespostaEditaTopicoDTO(TopicosEntity topico) {
-        this(topico.getTitulo(), topico.getMensagem(), topico.getStatus());
+        this(topico.getTitulo(),
+                topico.getMensagem(),
+                topico.getStatus());
     }
 }

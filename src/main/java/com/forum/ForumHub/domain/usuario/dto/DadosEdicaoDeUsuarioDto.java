@@ -7,7 +7,7 @@ public record DadosEdicaoDeUsuarioDto(
 
         String nome,
 
-        @Email
+        @Email(message = "Por padrão deve ser um email")
         String email
 ) {
 }

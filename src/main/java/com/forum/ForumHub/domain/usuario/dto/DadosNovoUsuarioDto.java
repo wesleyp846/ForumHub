@@ -6,18 +6,14 @@ import jakarta.validation.constraints.Pattern;
 
 public record DadosNovoUsuarioDto(
 
-    @NotBlank
+    @NotBlank(message = "O nome não pode ser nulo")
     String nome,
 
-    @NotBlank
+    @NotBlank(message = "o email não pode ser nulo")
     @Email
     String email,
 
-    @NotBlank
+    @NotBlank(message = "A senha não pode ser nula e deve ter 6 digitos")
     @Pattern(regexp = "\\d{6}")
     String senha
-
-//    @NotNull @Valid DadosEndereco endereco) {
-//    }
-
 ){}

@@ -8,7 +8,7 @@ public record ListagemDeDadosUsuariosDto(
         Long id,
         String nome,
 
-        @Email
+        @Email(message = "Por padrão deve ser um email")
         String email
 ) {
     public ListagemDeDadosUsuariosDto(UsuarioEntity usuario){
