@@ -5,6 +5,7 @@ import com.forum.ForumHub.domain.resposta.dto.EditarRespostaDto;
 import com.forum.ForumHub.domain.topico.entity.TopicosEntity;
 import com.forum.ForumHub.domain.usuario.entity.UsuarioEntity;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -25,6 +26,7 @@ public class EntityResposta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull(message = "A resposta não pode ser nula")
     private String resposta;
     private LocalDateTime dataCriacao;
 

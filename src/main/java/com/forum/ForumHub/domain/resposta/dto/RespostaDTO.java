@@ -8,6 +8,7 @@ public record RespostaDTO(
         String autor) {
 
     public RespostaDTO(EntityResposta resposta) {
+
         this(resposta.getResposta(), resposta.getUsuario().getNome());
     }
 }
