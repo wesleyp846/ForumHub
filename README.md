@@ -4,10 +4,10 @@
    <img src="https://img.shields.io/badge/ STATUS-LANÇADO (desenvolvido)-brightgreen"/>
 </p>
 <p align="center">
-   <img src="https://img.shields.io/badge/ STATUS-VERSÃO 1.0-brightgreen"/>
+   <img src="https://img.shields.io/badge/ STATUS-VERSÃO 2.5-brightgreen"/>
 </p>
 
-> Escrito em `JAVA`.
+> Escrito em `JAVA 17`.
 
 &nbsp;
 ## Introdução
@@ -20,22 +20,23 @@ Uma ferramenta para gerenciamento de `fóruns`, permitindo a `criação e gerenc
 
 Esta aplicação foi criada no contexto da bolsa do curso da [Oracle](https://www.oracle.com/br/), [Alura](https://www.alura.com.br/) e [Ifood](https://www.ifood.com.br/), com foco em `BackEnders iniciantes`.
 
-A aplicação é escrita `exclusivamente` em [JAVA](https://docs.oracle.com/en/java/javase/17/docs/api/), utilizando o framework [Spring Boot](https://spring.io/projects/spring-boot).
+A aplicação é escrita `exclusivamente` em [JAVA](https://docs.oracle.com/en/java/javase/17/docs/api/), utilizando o framework [Spring Boot](https://spring.io/projects/spring-boot) e em sua versão 2.5 traz suporte `implemantação` em [Docker](https://www.docker.com/).
 
 </p>
 
 &nbsp;
 &nbsp;
-## Versão Atual: 1.0
+## Versão Atual: 2.5
 &nbsp;
-Na versão 1.0, a aplicacação foi `finalizada` e `entregue`.
+Na versão 2.5, a aplicacação foi `finalizada`, `Dockerizada` e `entregue`.
 
 &nbsp;
 &nbsp;
 > ### Pré-requisitos
 &nbsp;
 * Acesso à `WEB`.
-* `Java 22` instalado.
+* `Doker`
+* `Java 17` instalado (opicional).
 * `Intellij IDEA` instalado (opicional).
 * `Maven` configurado (opicional).
 
@@ -52,6 +53,8 @@ Na versão 1.0, a aplicacação foi `finalizada` e `entregue`.
 
 [Postgresql](https://www.postgresql.org/download): Usado como banco de dados em memória para desenvolvimento.
 
+[Docker](https://www.docker.com/): Usado na conteinerização da aplicação como um todo.
+
 &nbsp;
 &nbsp;
 > ### Funcionalidades
@@ -62,6 +65,7 @@ Na versão 1.0, a aplicacação foi `finalizada` e `entregue`.
 2. Os `tópicos` podem ser `criados, editados, listados e deletados`.
 3. As `respostas` aos tópicos podem ser `criadas, editadas, listadas e deletadas`.
 4. A `autenticação` dos usuários é gerenciada por meio de `tokens JWT`.
+5. Como o `Docker` instalado é possível clonar o [repositório](https://github.com/wesleyp846/ForumHub) e com comando simples via `terminal`, rodar a aplicação` 
 
 &nbsp;
 &nbsp;
@@ -139,6 +143,27 @@ Na versão 1.0, a aplicacação foi `finalizada` e `entregue`.
 - **UsuarioSimplesDTO**: Dados simplificados de um usuário.
 - **DetalhesRespostaDTO**: Detalhes de uma resposta.
 - **PageDetalhesRespostaDTO**: Dados de paginação de detalhes de respostas.
+
+&nbsp;
+&nbsp;
+
+> ### Configuração via DOCKER
+
+>> Clone do repositório
+
+      git clone https://github.com/wesleyp846/ForumHub
+
+>> Navegue até a pasta do app
+
+      cd ForumHub
+
+>> Compile a aplicação
+
+      sudo docker-compose build
+
+>> Rode a aplicação
+
+      sudo docker-compose up
 
 &nbsp;
 &nbsp;
