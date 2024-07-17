@@ -22,6 +22,12 @@ Esta aplicação foi criada no contexto da bolsa do curso da [Oracle](https://ww
 
 A aplicação é escrita `exclusivamente` em [JAVA](https://docs.oracle.com/en/java/javase/17/docs/api/), utilizando o framework [Spring Boot](https://spring.io/projects/spring-boot) e em sua versão 2.5 traz suporte `implemantação` em [Docker](https://www.docker.com/).
 
+
+Para implementação direto do `DOCKER HUB`, cole em seu terminal:
+
+      sudo docker pull wesleyp846/forum_hub:V2.5
+      sudo docker run -d -p 8080:8080 wesleyp846/forum_hub:V2.5
+
 </p>
 
 &nbsp;
